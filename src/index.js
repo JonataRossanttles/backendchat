@@ -14,7 +14,7 @@ const server = http.createServer(app);
 // Configurar o Socket.IO com CORS
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-snowy-phi.vercel.app/", // Permitir que o frontend em localhost:3000 acesse o servidor
+    origin: "https://chat-snowy-phi.vercel.app", // Permitir que o frontend em localhost:3000 acesse o servidor
     methods: ["GET", "POST"] // Métodos HTTP permitidos
   }
 });
