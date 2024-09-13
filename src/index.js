@@ -4,15 +4,18 @@ const http = require('http'); // Usar http para criar o servidor
 const { Server } = require('socket.io'); // Usar Server do socket.io
 const port = 5000;
 const app = express();
+const login = require('./rotas/login')
+
 
 
 app.use(cors()); // Configura o CORS para todas as rotas do Express
-
+app.use(express.json())
+app.use('/login',login)
 // Criar servidor HTTP
 const server = http.createServer(app);
 
 // Configurar o Socket.IO com CORS
-const io = new Server(server, {
+const io = new Server(server, { 
   cors: {
     origin: "https://chat-snowy-phi.vercel.app", // Permitir que o frontend em localhost:3000 acesse o servidor
     methods: ["GET", "POST"] // Métodos HTTP permitidos
@@ -48,8 +51,6 @@ io.on('connection', (socket) => {
     socket.emit('erro',{erro:erro})
  })
 
-
-
   });
 
   socket.on('init',()=>{
@@ -60,7 +61,6 @@ io.on('connection', (socket) => {
   })
 
 });
-
 
 // Iniciar o servidor
 server.listen(port, () => {
