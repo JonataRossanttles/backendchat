@@ -27,7 +27,8 @@ io.on('connection', (socket) => {
   console.log('Usuário conectado:', socket.id);
 
   socket.on('new_message', (dados) => {
-    const mensagem = {
+    if(dados.msg!=''){
+      const mensagem = {
         nome: dados.nome,
         conteudo:dados.msg,
         horario:dados.horario,
@@ -50,6 +51,8 @@ io.on('connection', (socket) => {
  } ).catch((erro)=>{
     socket.emit('erro',{erro:erro})
  })
+    }
+   
 
   });
 
@@ -66,4 +69,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
 
